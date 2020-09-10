@@ -4,10 +4,11 @@
 *.idea
 # Log file
 *.log
-
+target
 # BlueJ files
 *.ctxt
-
+chromedriver
+chromedriver.exe
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
