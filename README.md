@@ -1,16 +1,19 @@
 # cucumber-selenium-fw
 
 Steps to Do
-
+---
+###Project Set Up
 1. Create Maven project
-2. Add 5 dependencies as mentioned below:
+2. Add 5 dependencies in pom as mentioned below:
     * Cucumber-jvm
     * Cucumber-junit
     * Cucumber-pico-container(for dependency injection)
     * Junit 4 Library
     * Selenium Library
+    
+    Reference Branch: 1-add-steps-to-do-in-read-me-file
 
-`
+```
    <dependencies>
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -45,5 +48,18 @@ Steps to Do
             <artifactId>selenium-java</artifactId>
             <version>3.141.59</version>
         </dependency>
-` 
+```
+---
+###Code to Develop
+1. Create a new feature file under test->resources-features package.
+2. Add new Healthcheck feature as below:
+```
+@ui @healthcheck
+Feature: E-commerce Project Web Site Health Check
 
+  Scenario: User is able to Open the browser, navigate to the URL and Search for Product
+    Given User opened browser
+    And User navigated to the home application url
+    When User Search for product "Laptop"
+    Then Search Result page is displayed
+```
