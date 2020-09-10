@@ -65,7 +65,7 @@ Feature: E-commerce Project Web Site Health Check
     When User Search for product "Laptop"
     Then Search Result page is displayed
 ```
-
+---
 
 ###Add Runner File
 Reference Branch: ```3-add-runner-file```
@@ -93,6 +93,7 @@ import org.junit.runner.RunWith;
             "html:target/html/",
             "json:target/json/file.json",
             },
+        publish=true,
         dryRun=true // to tell whether to test run(true) or actual run(false)
         )
 public class TestRunner {
@@ -101,3 +102,51 @@ public class TestRunner {
     //So do not get confused
 }
 ```
+---
+###Generate Step Defs and Add in stepdefs package
+Reference Branch: ```4-generate-and-add-step-defs-file```
+1. Right click on the TestRunner.java file and click on Run
+2. The run will fail with the below message and it will generate the method definition for you.
+3. Copy this method definition from the console and paste it in the newly created java file.
+4. Name this new package 'stepdefs' under: ```test.java.com.visionit.automation```
+5. Create New java file as StepDefs.java under package: ```test.java.com.visionit.automation.stepdefs```
+
+```The step "User opened browser" is undefined. You can implement it using the snippet(s) below:```
+
+New Java Step Definition file will look like:
+```$xslt
+package com.visionit.automation.stepdefs;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class StepDefs {
+    @Given("User opened browser")
+    public void user_opened_browser() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @Given("User navigated to the home application url")
+    public void user_navigated_to_the_home_application_url() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @When("User Search for product {string}")
+    public void user_search_for_product(String string) {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @Then("Search Result page is displayed")
+    public void search_result_page_is_displayed() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+
+}
+
+```
+---
