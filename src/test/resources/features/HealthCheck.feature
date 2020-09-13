@@ -6,3 +6,11 @@ Feature: E-commerce Project Web Site Health Check
     And User navigated to the home application url
     When User Search for product "Laptop"
     Then Search Result page is displayed
+
+    @t
+  Scenario: User is click on the Product and check the Product Details
+    Given User opened browser
+    And User navigated to the home application url
+    And User Search for product "Laptop"
+    When User click on any product
+    Then Product Description is displayed in new tab

@@ -2,8 +2,8 @@
 
 Steps to Do
 ---
-###Project Set Up
-   Reference Branch: ```1-add-steps-to-do-in-read-me-file```
+### 1. Project Set Up
+Reference Branch: ```1-add-steps-to-do-in-read-me-file```
 1. Create Maven project
 2. Add 5 dependencies in pom as mentioned below:
     * Cucumber-jvm
@@ -51,7 +51,7 @@ Steps to Do
         </dependency>
 ```
 ---
-###Add Feature File
+### 2. Add Feature File
 Reference Branch: ```2-add-feature-file```
 1. Create a new feature file under test->resources-features package.
 2. Add new Healthcheck feature as below:
@@ -67,7 +67,7 @@ Feature: E-commerce Project Web Site Health Check
 ```
 ---
 
-###Add Runner File
+### 3. Add Runner File
 Reference Branch: ```3-add-runner-file```
 1. Under ```test.java.com.visionit.automation``` package create package ```runners```.
 2. Add a Class and add Junit annotation ```@RunWith(Cucumbers.class```
@@ -103,7 +103,7 @@ public class TestRunner {
 }
 ```
 ---
-###Generate Step Defs and Add in stepdefs package
+### 4. Generate Step Defs and Add in stepdefs package
 Reference Branch: ```4-generate-and-add-step-defs-file```
 1. Right click on the TestRunner.java file and click on Run
 2. The run will fail with the below message and it will generate the method definition for you.
@@ -150,7 +150,7 @@ public class StepDefs {
 
 ```
 ---
-###Add Selenium Steps in Step Defs Java File
+### 5 .Add Selenium Steps in Step Defs Java File
 Reference Branch: ```5-write-selenium-steps-in-step-def-file```
 
 1. GO to Step Def file
@@ -245,3 +245,74 @@ public class StepDefs {
 }
 ```
 ---
+### 6. Add new Test Case for Product Description
+Reference branch: ```6-add-new-scn-clik-on-product```
+
+1. Add new Scenario in the Feature File of product Description.
+Notice that I am reusing the steps created in the previous scenerio
+2. Run the runner file with dryRun flag as ```true```
+3. This will generate the steps for the new steps.
+4. Copy these new steps in the StepDefs file and write corresponding selenium code.
+
+```$xslt
+  Scenario: User is click on the Product and check the Product Details
+    Given User opened browser
+    And User navigated to the home application url
+    And User Search for product "Laptop"
+    When User click on any product
+    Then Product Description is displayed in new tab
+
+New Steps Created, when you run the runner file:
+
+@When("User click on any product")
+public void user_click_on_any_product() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+
+
+Some other steps were also undefined:
+
+@Then("Product Description is displayed in new tab")
+public void product_description_is_displayed_in_new_tab() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+```
+Write step def for Click on any product:
+```$xslt
+    @When("User click on any product")
+    public void user_click_on_any_product() {
+        //listOfProducts will have all the links displayed in the search box
+        List<WebElement> listOfProducts = driver.findElements(By.xpath("//a[@class='a-link-normal a-text-normal']"));
+
+        //But as this step asks click on any link, we can choose to click on Index 0 of the list
+        listOfProducts.get(0).click();
+    }
+
+   @Then("Product Description is displayed in new tab")
+    public void product_description_is_displayed_in_new_tab() {
+        //As product description click will open new tab, we need to switch the driver to the new tab
+        //If you do not switch, you can not access the new tab html elements
+        //This is how you do it
+        Set<String> handles = driver.getWindowHandles(); // get all the open windows
+        Iterator<String> it = handles.iterator(); // get the iterator to iterate the elements in set
+        String original = it.next();//gives the parent window id
+        String prodDescp = it.next();//gives the child window id
+
+        driver.switchTo().window(prodDescp); // switch to product Descp
+
+        //Now driver can access new driver window, but can not access the orignal tab
+        //Check product title is displayed
+        WebElement productTitle = driver.findElement(By.id("productTitle"));
+        Assert.assertEquals("Product Title",true,productTitle.isDisplayed());
+
+        WebElement addToCartButton = driver.findElement(By.xpath("//button[@title='Add to Shopping Cart']"));
+        Assert.assertEquals("Product Title",true,addToCartButton.isDisplayed());
+
+        //Switch back to the Original Window, however no other operation to be done
+        driver.switchTo().window(original);
+        
+    }
+```
+
