@@ -316,7 +316,7 @@ Write step def for Click on any product:
     }
 ```
 -----
-### Cucumber Hooks @Before and @After Hooks for Browser Invoke and Browser Close Operation
+### 7. Cucumber Hooks @Before and @After Hooks for Browser Invoke and Browser Close Operation
 Reference Branch: ```7-cucumber-hooks-before-after```
 1. Browser Open and Close Operation can be taken care by @Before and @After hooks. 
 2. These are similar to Junit After and Before hooks, i.e. they get eexecuted automatically 'before' and'after' each scenario.
@@ -365,3 +365,46 @@ Step Defs Code Snippet:
 
 ```
 ---
+### 8. Cucumber Scnerio Interface/Object Injections
+Reference Branch:
+
+1. Scenario(see below method arg type) is a Interface, given by Cucumber. This is native 'dependency injection' given by cucumber. Explicit dependency injection fw, which we will use later is 'Pico Container'.
+2. This object is 'Injected' at run time and can be used for logging, screen shot attachement to reports etc.
+3. Other than that it also carries steps and scenario pass, fail status(more on this later).
+4. After this is injected in the before method, it has to be assigned to a class variable and it can be used in all the step def methods with in the class.
+5. Check this link for more details on this:
+https://cucumber.io/docs/cucumber/api/#hooks
+6. Check the reports and witness how these logs are displayed in the report.
+
+```$xslt
+
+   WebDriver driver;
+    String base_url = "https://amazon.in";
+    int implicit_wait_timeout_in_sec = 20;
+    Scenario scn; // this is set in the @Before method
+
+    //Scenario(see below method arg type) is a Interface, given by Cucumber;
+    //This object is 'Injected' at run time and can be used for logging, screen shot attachement to reports
+    //Other than that it also carries steps and scenario pass, fail status(more on this later)
+    @Before
+    public void setUp(Scenario scn){
+        this.scn = scn; // Assign this to class variable, so that it can be used in all the step def methods
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(implicit_wait_timeout_in_sec, TimeUnit.SECONDS);
+    }
+
+    @Given("User navigated to the home application url")
+    public void user_navigated_to_the_home_application_url() {
+        driver.get(base_url);
+        //Can be used in all the methods like this to log additional info about the step
+        scn.log("Browser navigated to URL: " + base_url);
+
+        String expected = "Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in";
+        String actual =driver.getTitle();
+        Assert.assertEquals("Page Title validation",expected,actual);
+
+        scn.log("Page title validation successfull. Actual title: " + actual );
+    }
+```
+ 
