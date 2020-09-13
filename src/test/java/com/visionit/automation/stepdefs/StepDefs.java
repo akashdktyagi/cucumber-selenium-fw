@@ -1,5 +1,7 @@
 package com.visionit.automation.stepdefs;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -22,12 +24,30 @@ public class StepDefs {
     String base_url = "https://amazon.in";
     int implicit_wait_timeout_in_sec = 20;
 
-
-    @Given("User opened browser")
-    public void user_opened_browser() {
+    // make sure to use this before import io.cucumber.java.Before;
+    // Use @Before to execute steps to be executed before each scnerio
+    // one example can be to invoke the browser
+    @Before
+    public void setUp(){
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(implicit_wait_timeout_in_sec, TimeUnit.SECONDS);
+    }
+
+    // make sure to use this after import io.cucumber.java.After;
+    // Use @After to execute steps to be executed after each scnerio
+    // one example can be to close the browser
+    @After
+    public void cleanUp(){
+        driver.quit();
+    }
+
+    //Do not need to use this method
+    @Given("User opened browser")
+    @Deprecated
+    public void user_opened_browser() {
+        //We do need this step now, because steps to invoke the browser
+        //has been moved to  @Before cucumber method
     }
 
     @Given("User navigated to the home application url")

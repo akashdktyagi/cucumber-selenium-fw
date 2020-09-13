@@ -315,4 +315,53 @@ Write step def for Click on any product:
         
     }
 ```
+-----
+### Cucumber Hooks @Before and @After Hooks for Browser Invoke and Browser Close Operation
+Reference Branch: ```7-cucumber-hooks-before-after```
+1. Browser Open and Close Operation can be taken care by @Before and @After hooks. 
+2. These are similar to Junit After and Before hooks, i.e. they get eexecuted automatically 'before' and'after' each scenario.
+3. Therefore as a part of this modification, I am not using step to invoke the browser, check the feature file in the reference branch folder structure.
+4. Putting in files here as well.
+```$xslt
+Feature: E-commerce Project Web Site Health Check
 
+  Scenario: User is able to Open the browser, navigate to the URL and Search for Product
+    Given User navigated to the home application url
+    When User Search for product "Laptop"
+    Then Search Result page is displayed
+
+  Scenario: User is click on the Product and check the Product Details
+    Given User navigated to the home application url
+    And User Search for product "earphone"
+    When User click on any product
+    Then Product Description is displayed in new tab
+
+Step Defs Code Snippet:
+    // make sure to use this before import io.cucumber.java.Before;
+    // Use @Before to execute steps to be executed before each scnerio
+    // one example can be to invoke the browser
+    @Before
+    public void setUp(){
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(implicit_wait_timeout_in_sec, TimeUnit.SECONDS);
+    }
+
+    // make sure to use this after import io.cucumber.java.After;
+    // Use @After to execute steps to be executed after each scnerio
+    // one example can be to close the browser
+    @After
+    public void cleanUp(){
+        driver.quit();
+    }
+
+    //Do not need to use this method
+    @Given("User opened browser")
+    @Deprecated
+    public void user_opened_browser() {
+        //We do need this step now, because steps to invoke the browser
+        //has been moved to  @Before cucumber method
+    }
+
+```
+---
