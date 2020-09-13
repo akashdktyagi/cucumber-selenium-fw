@@ -6,6 +6,7 @@ Feature: E-commerce Project Web Site Health Check
     When User Search for product "Laptop"
     Then Search Result page is displayed
 
+    @t
   Scenario: User is click on the Product and check the Product Details
     Given User navigated to the home application url
     And User Search for product "earphone"

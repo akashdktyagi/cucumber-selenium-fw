@@ -104,11 +104,13 @@ public class StepDefs {
         WebElement productTitle = driver.findElement(By.id("productTitle"));
         Assert.assertEquals("Product Title",true,productTitle.isDisplayed());
 
-        WebElement addToCartButton = driver.findElement(By.id("add-to-cart-button"));
+        WebDriverWait wait = new WebDriverWait(driver,20);
+        //wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("add-to-cart-button"))));
+        WebElement addToCartButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("add-to-cart-button")));
+
         Assert.assertEquals("Product Title",true,addToCartButton.isDisplayed());
 
         //Switch back to the Original Window, however no other operation to be done
         driver.switchTo().window(original);
-
     }
 }
