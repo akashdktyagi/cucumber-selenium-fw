@@ -7,6 +7,7 @@ package com.visionit.automation.stepdefs;
  * Description: Test Automation FW development
  */
 
+import com.visionit.automation.core.WebDriverFactory;
 import com.visionit.automation.pageobjects.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -56,6 +57,10 @@ public class StepDefs {
     SearchPageObjects searchPageObjects;
     ProductDescriptionPageObjects productDescriptionPageObjects;
 
+    //***********************************************************************
+    //***********************HOOKS*******************************************
+    //***********************************************************************
+
     // make sure to use this before import io.cucumber.java.Before;
     // Use @Before to execute steps to be executed before each scnerio
     // one example can be to invoke the browser
@@ -63,11 +68,12 @@ public class StepDefs {
     //This object is 'Injected' at run time and can be used for logging, screen shot attachement to reports
     //Other than that it also carries steps and scenario pass, fail status(more on this later)
     @Before
-    public void setUp(Scenario scn){
+    public void setUp(Scenario scn) throws Exception {
         this.scn = scn; //Assign this to class variable, so that it can be used in all the step def methods
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(implicit_wait_timeout_in_sec, TimeUnit.SECONDS);
+
+        //Get the browser name by default it is chrome
+        String browserName = WebDriverFactory.getBrowserName();
+        driver = WebDriverFactory.getWebDriverForBrowser(browserName);
         logger.info("Browser invoked.");
 
         //Init Page Object Model Objects
@@ -83,13 +89,17 @@ public class StepDefs {
     // one example can be to close the browser
     @After
     public void cleanUp(){
-        driver.quit();
+        WebDriverFactory.quitDriver();
         scn.log("Browser Closed");
     }
 
+    //***********************************************************************
+    //***********************Step Defs***************************************
+    //***********************************************************************
+
     @Given("User navigated to the home application url")
     public void user_navigated_to_the_home_application_url() {
-        driver.get(base_url);
+        WebDriverFactory.navigateToTheUrl(base_url);
         scn.log("Browser navigated to URL: " + base_url);
 
         String expected = "Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in";
@@ -115,24 +125,10 @@ public class StepDefs {
 
     @Then("Product Description is displayed in new tab")
     public void product_description_is_displayed_in_new_tab() {
-        //As product description click will open new tab, we need to switch the driver to the new tab
-        //If you do not switch, you can not access the new tab html elements
-        //This is how you do it
-        Set<String> handles = driver.getWindowHandles(); // get all the open windows
-        scn.log("List of windows found: "+handles.size());
-        scn.log("Windows handles: " + handles.toString());
-        Iterator<String> it = handles.iterator(); // get the iterator to iterate the elements in set
-        String original = it.next();//gives the parent window id
-        String prodDescp = it.next();//gives the child window id
-
-        driver.switchTo().window(prodDescp); // switch to product Descp
+        WebDriverFactory.switchBrowserToTab();
         scn.log("Switched to the new window/tab");
 
         productDescriptionPageObjects.ValidateProductTileIsCorrectlyDisplayed();
         productDescriptionPageObjects.ValidateAddToCartButtonIsCorrectlyDisplayed();
-
-        //Switch back to the Original Window, however no other operation to be done
-        driver.switchTo().window(original);
-        scn.log("Switched back to Original tab");
     }
 }

@@ -484,3 +484,200 @@ https://cucumber.io/docs/cucumber/api/#hooks
         </Logger>
         -->
 ```
+### 10. Page Object Model:
+Reference Branch: ```10-page-object-model```
+
+1. Page Object Model is used to store all locators of the page in a single class file.
+2. All the locators will be marked as private.
+3. Declare WebDriver at the top.
+4. Create a paramatrized constructor and pass driver object while creating page object model class object.
+5. Inside the constructor assign the instance driver object with the passed driver object. ```this.driver = driver```
+6. All the instance variables should be marked as private, including web driver and locators.
+7. Create public methods to perform operations on these locators.
+8. Create public methods to perform validations.
+
+Check below example, for better understanding go to branch and check.
+
+Page Object Model file:
+```$xslt
+public class SearchPageObjects {
+
+    private static final Logger logger = LogManager.getLogger(SearchPageObjects.class);
+
+    private WebDriver driver;
+
+    private By search_refinement_categories_segment  = By.id("s-refinements");
+    private By product_link_list = By.xpath("//a[@class='a-link-normal a-text-normal']");
+
+    //Section 3: Paratmerize the constuctor
+    public SearchPageObjects(WebDriver driver){
+        this.driver = driver;
+    }
+
+    public void ValidateProductSearchIsSuccessfull(){
+        if (driver.findElement(search_refinement_categories_segment).isDisplayed()){
+            Assert.assertTrue(true);
+            logger.info("Search Page is displayed because refinement category is displayed");
+        }else{
+            logger.fatal("Search Page is not displayed because refinement category is not displayed");
+            Assert.fail("Search Page is not displayed because refinement category is not displayed");
+        }
+    }
+
+    public String ClickOnTheProductLink(int productIndex){
+        //listOfProducts will have all the links displayed in the search box
+        List<WebElement> listOfProducts = driver.findElements(product_link_list);
+        logger.info("Number of products searched: " + listOfProducts.size());
+
+        //Link on the  link with argument productIndex
+        listOfProducts.get(productIndex).click();
+        logger.info("Clicked on the Link in the List with index: " + productIndex +
+                ". Link Text: " + listOfProducts.get(productIndex).getText());
+
+        //return the text of the clicked link if further validation is required.
+        return listOfProducts.get(productIndex).getText();
+
+    }
+}
+
+```
+
+How to use it in Step Defs:
+
+Declare the objects
+```$xslt
+    CmnPageObjects cmnPageObjects;
+    HomePageObjects homePageObjects;
+    SignInPageObjects signInPageObjects;
+    SearchPageObjects searchPageObjects;
+    ProductDescriptionPageObjects productDescriptionPageObjects;
+```
+
+Initialize the objects in the @Before method:
+
+```$xslt
+    @Before
+    public void setUp(Scenario scn) throws Exception {
+        this.scn = scn; //Assign this to class variable, so that it can be used in all the step def methods
+
+        //Get the browser name by default it is chrome
+        String browserName = WebDriverFactory.getBrowserName();
+        driver = WebDriverFactory.getWebDriverForBrowser(browserName);
+        logger.info("Browser invoked.");
+
+        //Init Page Object Model Objects
+        cmnPageObjects = new CmnPageObjects(driver);
+        homePageObjects = new HomePageObjects(driver);
+        signInPageObjects = new SignInPageObjects(driver);
+        searchPageObjects = new SearchPageObjects(driver);
+        productDescriptionPageObjects = new ProductDescriptionPageObjects(driver);
+    }
+
+```
+
+Call methods using page object:
+```    @Given("User navigated to the home application url")
+       public void user_navigated_to_the_home_application_url() {
+           WebDriverFactory.navigateToTheUrl(base_url);
+           scn.log("Browser navigated to URL: " + base_url);
+   
+           String expected = "Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in";
+           cmnPageObjects.validatePageTitleMatch(expected);
+       }
+```
+### 11. Web Driver Manager Methods:
+Reference Branch: ```11-webdriver-methods```
+
+1. Used Factory method to return driver to be executed against.
+2. Driver can also be sent from mvn command line.
+3. If no Browser is sent then chrome is the default Browser.
+4. mvn command: ```mvn clean verify``` : this will run on chrome, since no browser is mentioned.
+5. mvn command: ```mvn clean verify -Dbrowser=firefox``` :  this will run on firefox
+6. mvn command: ```mvn clean verify -Dbrowser=headless``` : this will run on headless browser, i.e. no browser will be opened and tests will be executed on a head less browser
+
+Check the code here:
+
+WebDriverFactory Class:
+
+```$xslt
+public class WebDriverFactory {
+    private static final Logger logger = LogManager.getLogger(WebDriverFactory.class);
+    private static WebDriver driver=null;
+    public static WebDriver getWebDriverForBrowser(String browser) throws Exception {
+        switch(browser.toLowerCase()){
+            case "chrome":
+                driver = new ChromeDriver();
+                logger.info("Chrome Browser invoked");
+                break;
+            case "firefox":
+                driver = new FirefoxDriver();
+                logger.info("Firefox Browser invoked");
+                break;
+            case "headless":
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("headless");
+                options.addArguments("window-size=1200x600");
+                driver = new ChromeDriver(options);
+                logger.info("Headless Chrome Browser invoked");
+                break;
+            default:
+                logger.fatal("No such browser is implemented.Browser name sent: " + browser);
+                throw new Exception("No such browser is implemented.Browser name sent: " + browser);
+        }
+
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        logger.info("Driver maximized and implicit time out set to 20 seconds");
+        return driver;
+    }
+
+    public static void navigateToTheUrl(String url){
+        driver.get(url);
+        logger.info("Browser navigated to the url: " + url);
+    }
+
+    public static void quitDriver(){
+        driver.quit();
+        logger.info("Driver closed");
+    }
+    public static void switchBrowserToTab(){
+        //As product description click will open new tab, we need to switch the driver to the new tab
+        //If you do not switch, you can not access the new tab html elements
+        //This is how you do it
+        Set<String> handles = driver.getWindowHandles(); // get all the open windows
+        logger.info("List of windows found: "+handles.size());
+        logger.info("Windows handles: " + handles.toString());
+        Iterator<String> it = handles.iterator(); // get the iterator to iterate the elements in set
+        String original = it.next();//gives the parent window id
+        String nextTab = it.next();//gives the child window id
+        driver.switchTo().window(nextTab); // switch to product Descp
+        logger.info("Switched to the new window/tab");
+    }
+
+    public static String getBrowserName(){
+        String browserDefault = "chrome"; //Set by default
+        String browserSentFromCmd = System.getProperty("browser");
+
+        if (browserSentFromCmd==null){
+            return browserDefault;
+        }else{
+            return browserSentFromCmd;
+        }
+    }
+
+}
+```
+
+How to use:
+```$xslt
+    @Before
+    public void setUp(Scenario scn) throws Exception {
+        this.scn = scn; //Assign this to class variable, so that it can be used in all the step def methods
+
+        //Get the browser name by default it is chrome
+        String browserName = WebDriverFactory.getBrowserName();
+        driver = WebDriverFactory.getWebDriverForBrowser(browserName);
+        logger.info("Browser invoked.");
+      }
+```
+

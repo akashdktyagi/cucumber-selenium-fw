@@ -56,6 +56,4 @@ public class SearchPageObjects {
         return listOfProducts.get(productIndex).getText();
 
     }
-
-
 }
