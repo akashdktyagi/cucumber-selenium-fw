@@ -407,4 +407,80 @@ https://cucumber.io/docs/cucumber/api/#hooks
         scn.log("Page title validation successfull. Actual title: " + actual );
     }
 ```
+ ### 9. Log 4j Impl for Logging
+ Reference Branch: ```9-log4j-impl-for-logging```
  
+ 1. Add Log4 J 2 Depdendency in POM.
+ 2. Add Log4j2.xml under ```test.resources``` package.
+ 3. On top of each class create the statement with its class name.
+ 4. Based on the info mentioned in the log4j2.xml configuration file, logs will be printed on the console as well as a new file will be created every time you run the framework.
+    ```    private static final Logger logger = LogManager.getLogger(TestCases_1.class);```
+5. . Make sure to replace the class name in above statement. For example, for class: "StepDefs.Java", then statement will look like:
+    ```private static final Logger logger = LogManager.getLogger(StepDefs.class);``` 
+6. Logger statements can then be used in where in the class. To make things simple, you can chosse to write for all the information logs: ```Log.info("<info messages>")```.
+7. And for any where you want to log errors, mention, ```Log.fatal or Log.error```
+8. There are other log levels as well like debug, trace etc. For details on this you can check this link: https://www.tutorialspoint.com/log4j/log4j_logging_levels.htm
+
+```$xslt
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.13.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.13.1</version>
+        </dependency>
+```
+ Example:
+ 
+ ``` logger.info("Page Title validation successfull. Expected and actual text matched. Text: " + actual );```
+ 
+ Log4j2.xml file:
+ 
+ ```$xslt
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Properties>
+        <!-- Setting for creating log file for each run -->
+        <property name="filePattern">${date:yyyy-MM-dd-HH_mm_ss}</property>
+    </Properties>
+
+    <Appenders>
+        <!-- Setting for creating log file for each run -->
+        <File name="File" fileName="app_${filePattern}.log" append="false">
+            <PatternLayout
+                    pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
+        </File>
+        <!-- Setting for creating log file on each day basis -->
+        <!--Uncomment this if you want ROLLING File i.e. logs will be in the same file for each day.
+        <!-- A rolling file Example
+        <RollingFile name="fileLogger" fileName="app-info.log" filePattern="app-info-%d{yyyy-MM-dd}.log">
+            <PatternLayout>.
+                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+        -->
+
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout   pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+        </Console>
+    </Appenders>
+    <Loggers>
+
+        <Root level="debug" additivity="false">
+            <appender-ref ref="File" />
+            <appender-ref ref="console" />
+        </Root>
+    </Loggers>
+</Configuration>
+        <!--
+        <Logger name="com." level="debug" additivity="true">
+            <appender-ref ref="fileLogger" level="debug" />
+        </Logger>
+        -->
+```

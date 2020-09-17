@@ -1,5 +1,12 @@
 package com.visionit.automation.stepdefs;
 
+/***
+ * Author: Akash Tyagi
+ * Company: VisionIT
+ * Date: 17-Sep-2020
+ * Description: Test Automation FW development
+ */
+
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -13,13 +20,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class StepDefs {
+
+    private static final Logger logger = LogManager.getLogger(StepDefs.class);
 
     WebDriver driver;
     String base_url = "https://amazon.in";
@@ -38,6 +48,7 @@ public class StepDefs {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(implicit_wait_timeout_in_sec, TimeUnit.SECONDS);
+        logger.info("Browser invoked.");
     }
 
     // make sure to use this after import io.cucumber.java.After;
