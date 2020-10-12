@@ -16,9 +16,10 @@ Reference Branch: ```1-add-steps-to-do-in-read-me-file```
     * Cucumber-pico-container(for dependency injection)
     * Junit 4 Library
     * Selenium Library
-    
 
-
+<details>
+  <summary> Click to see code.</summary>
+  
 ```
    <dependencies>
         <dependency>
@@ -55,11 +56,19 @@ Reference Branch: ```1-add-steps-to-do-in-read-me-file```
             <version>3.141.59</version>
         </dependency>
 ```
+
+</details>
+
 ---
 ### 2. Add Feature File
 Reference Branch: ```2-add-feature-file```
 1. Create a new feature file under test->resources-features package.
 2. Add new Healthcheck feature as below:
+
+<details>
+  <summary> Click to see code.</summary>
+  
+  
 ```
 @ui @healthcheck
 Feature: E-commerce Project Web Site Health Check
@@ -70,6 +79,9 @@ Feature: E-commerce Project Web Site Health Check
     When User Search for product "Laptop"
     Then Search Result page is displayed
 ```
+
+</details>
+
 ---
 
 ### 3. Add Runner File
@@ -81,6 +93,9 @@ Reference Branch: ```3-add-runner-file```
 
 Check Below file:
 
+<details>
+  <summary> Click to see code.</summary>
+  
 ```$xslt
 TestRunner.java File
 package com.visionit.automation.runners;
@@ -107,6 +122,9 @@ public class TestRunner {
     //So do not get confused
 }
 ```
+
+</details>
+
 ---
 ### 4. Generate Step Defs and Add in stepdefs package
 Reference Branch: ```4-generate-and-add-step-defs-file```
@@ -119,6 +137,10 @@ Reference Branch: ```4-generate-and-add-step-defs-file```
 ```The step "User opened browser" is undefined. You can implement it using the snippet(s) below:```
 
 New Java Step Definition file will look like:
+
+<details>
+  <summary> Click to see code.</summary>
+  
 ```$xslt
 package com.visionit.automation.stepdefs;
 
@@ -154,6 +176,9 @@ public class StepDefs {
 }
 
 ```
+
+</details>
+
 ---
 ### 5 .Add Selenium Steps in Step Defs Java File
 Reference Branch: ```5-write-selenium-steps-in-step-def-file```
@@ -169,6 +194,10 @@ Reference Branch: ```5-write-selenium-steps-in-step-def-file```
 Check in the reference branch as well as below. For exact working code select the right branch in git hub and navigate to the file.
 
 Runner file should like below:
+
+<details>
+  <summary> Click to see code.</summary>
+  
 ```$xslt
 @RunWith(Cucumber.class)
 @CucumberOptions(
@@ -249,6 +278,9 @@ public class StepDefs {
     }
 }
 ```
+
+</details>
+
 ---
 ### 6. Add new Test Case for Product Description
 Reference branch: ```6-add-new-scn-clik-on-product```
@@ -259,6 +291,9 @@ Notice that I am reusing the steps created in the previous scenerio
 3. This will generate the steps for the new steps.
 4. Copy these new steps in the StepDefs file and write corresponding selenium code.
 
+<details>
+  <summary> Click to see code.</summary>
+  
 ```$xslt
   Scenario: User is click on the Product and check the Product Details
     Given User opened browser
@@ -320,6 +355,9 @@ Write step def for Click on any product:
         
     }
 ```
+
+</details>
+
 -----
 ### 7. Cucumber Hooks @Before and @After Hooks for Browser Invoke and Browser Close Operation
 Reference Branch: ```7-cucumber-hooks-before-after```
@@ -327,6 +365,10 @@ Reference Branch: ```7-cucumber-hooks-before-after```
 2. These are similar to Junit After and Before hooks, i.e. they get eexecuted automatically 'before' and'after' each scenario.
 3. Therefore as a part of this modification, I am not using step to invoke the browser, check the feature file in the reference branch folder structure.
 4. Putting in files here as well.
+
+<details>
+  <summary> Click to see code.</summary>
+  
 ```$xslt
 Feature: E-commerce Project Web Site Health Check
 
@@ -369,6 +411,9 @@ Step Defs Code Snippet:
     }
 
 ```
+
+</details>
+
 ---
 ### 8. Cucumber Scnerio Interface/Object Injections
 Reference Branch: 8-scenario-interface-injection
@@ -381,6 +426,9 @@ Reference Branch: 8-scenario-interface-injection
 https://cucumber.io/docs/cucumber/api/#hooks
 6. Check the reports and witness how these logs are displayed in the report.
 
+<details>
+  <summary> Click to see code.</summary>
+  
 ```$xslt
 
    WebDriver driver;
@@ -412,6 +460,9 @@ https://cucumber.io/docs/cucumber/api/#hooks
         scn.log("Page title validation successfull. Actual title: " + actual );
     }
 ```
+
+</details>
+
  ### 9. Log 4j Impl for Logging
  Reference Branch: ```9-log4j-impl-for-logging```
  
@@ -426,6 +477,9 @@ https://cucumber.io/docs/cucumber/api/#hooks
 7. And for any where you want to log errors, mention, ```Log.fatal or Log.error```
 8. There are other log levels as well like debug, trace etc. For details on this you can check this link: https://www.tutorialspoint.com/log4j/log4j_logging_levels.htm
 
+<details>
+  <summary> Click to see code.</summary>
+  
 ```$xslt
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -489,6 +543,9 @@ https://cucumber.io/docs/cucumber/api/#hooks
         </Logger>
         -->
 ```
+
+</details>
+
 ### 10. Page Object Model:
 Reference Branch: ```10-page-object-model```
 
@@ -504,6 +561,10 @@ Reference Branch: ```10-page-object-model```
 Check below example, for better understanding go to branch and check.
 
 Page Object Model file:
+
+<details>
+  <summary> Click to see code.</summary>
+  
 ```$xslt
 public class SearchPageObjects {
 
@@ -547,8 +608,13 @@ public class SearchPageObjects {
 
 ```
 
+</details>
+
 How to use it in Step Defs:
 
+<details>
+  <summary> Click to see code.</summary>
+  
 Declare the objects
 ```$xslt
     CmnPageObjects cmnPageObjects;
@@ -590,6 +656,8 @@ Call methods using page object:
            cmnPageObjects.validatePageTitleMatch(expected);
        }
 ```
+
+</details>
 ### 11. Web Driver Manager Methods:
 Reference Branch: ```11-webdriver-methods```
 
@@ -604,6 +672,9 @@ Check the code here:
 
 WebDriverFactory Class:
 
+<details>
+  <summary> Click to see code.</summary>
+  
 ```$xslt
 public class WebDriverFactory {
     private static final Logger logger = LogManager.getLogger(WebDriverFactory.class);
@@ -686,7 +757,10 @@ How to use:
       }
 ```
 
-12. Screen shot capturing
+</details>
+
+
+### 12. Screen shot capturing on test scenario failures
 Reference Branch: ```12-capture-screenshot-on-failure```
 
 1. Screen shot capturing is a important part of test cases failure investigation.
