@@ -3,15 +3,9 @@
 Steps to Do
 ---
 
-<details>
-  <summary>1. Project Set Up. Click to expand!</summary>
-  
-  ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets
-</details>
+This Framework has been created by Akash Tyagi and Sarang Holey. 
+It has been created for training purposes. However, is still industry standard and can be used in any actual live project.
+You can reach out to us at: akashdktyagi@gmail.com/sarangholey@gmail.com
 
 ### 1. Project Set Up
 Reference Branch: ```1-add-steps-to-do-in-read-me-file```
@@ -692,3 +686,53 @@ How to use:
       }
 ```
 
+12. Screen shot capturing
+Reference Branch: ```12-capture-screenshot-on-failure```
+
+1. Screen shot capturing is a important part of test cases failure investigation.
+2. When test cases fails, we need to give the evidence to the person who is investigating the report of the test execution.
+3. There can be many screen shot capturing strategies. like:
+     * Take one screen shot when test case end (pass or fail)
+     * Take screen shot after each line of the scenario.
+     * Take screen shot as soon as a step fails.
+4. Usually taking screen shot when scenario/step fails is more resonable and commonly used strategy.
+5. To implement it we will need to know at run time if the test is pass or fail.
+6. If the test is pass we will choose not to take a screen shot.
+7. If the test fails we will take the screenshot and attach it with the native report.
+8. Then can be achieved in cucumber using 'Scenario' Object injected in @After method.
+9. So we have added another After method (you can have many after methods)
+10.However we need to make sure, that this after method gets executed before above After method, otherwise browser will be closed by above after method and screen shot will not be captured.
+11.To run this @After method first, we need to add the argument 'order' to this method's annotation.
+12. Giving this method order as 2, means it will always execute first, and then giving order as 1 to the above after method.
+    * Order number is the order in which this hook should run. Higher numbers are run first. The default order is 10000.
+13. Now since we need to capture the screen shot only after a test is failed, we will put a if condition as check the failure using method 'isFailed'.
+14. If test is failed it will take the screen shot and attach the screen shot with the report. For this s.attach method is used. (in old version, method name was embed)
+15. You can check the screen shot attached in the target folder html/htmlreport.html as well as in the online cucumber report link of which get displayed at the end of the execution.
+    https://reports.cucumber.io/reports/0fcaf4a1-fb4f-41dc-b1a5-4a266291cc96  
+
+<b> Code Implementation: </b>
+
+<details>
+  <summary> Click to see code.</summary>
+  
+  ```
+    // Giving this method order as 2, so that quit happens after screen shot capture.
+    @After(order=1)
+    public void cleanUp(){
+        WebDriverFactory.quitDriver();
+        scn.log("Browser Closed");
+    }
+
+    @After(order=2) // this will execute first, higher the number, sooner it executes
+    public void takeScreenShot(Scenario s) {
+      if (s.isFailed()) {
+          TakesScreenshot scrnShot = (TakesScreenshot)driver;
+          byte[] data = scrnShot.getScreenshotAs(OutputType.BYTES);
+          scn.attach(data, "image/png","Failed Step Name: " + s.getName());
+      }else{
+          scn.log("Test case is passed, no screen shot captured");
+      }
+    }
+  ```
+
+</details>
