@@ -2,6 +2,17 @@
 
 Steps to Do
 ---
+
+<details>
+  <summary>1. Project Set Up. Click to expand!</summary>
+  
+  ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets
+</details>
+
 ### 1. Project Set Up
 Reference Branch: ```1-add-steps-to-do-in-read-me-file```
 1. Create Maven project
