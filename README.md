@@ -821,6 +821,10 @@ Reference Branch: ```12-capture-screenshot-on-failure```
 6 .In such cases, we will have to use scenario outline - Examples structure.
 7. Examples are written in a tabular format.
 8. Below example has only one column, but you can add multiple column, multiple row data.
+9. For first iteration, "<product_name>" variable will be replaced with first value in the examples table.
+10. Once first iteration is completed, the scenario will again start executing given statement and this time 2nd column value from examples will be picked.
+11. It will continue to do this, until all the rows are executed.
+12. Check this link for more details: https://cucumber.io/docs/gherkin/reference/
 
 <b> Code Implementation! </b>
 
