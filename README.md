@@ -810,3 +810,49 @@ Reference Branch: ```12-capture-screenshot-on-failure```
   ```
 
 </details>
+
+### 13. Scenario Outline and examples Implementation
+
+1. Scenario Outline is used to iterate same steps but with different data each time.
+2. This is an example of Data driven test case. Data Driven approach is similar to Data Provider in TestNG. (If you do not know test ng dnt worry.)
+3. But the idea is simple, "Same Steps" but with different Data.
+4. For example, we need to test the 'search' functionality but with different types of products.
+5. In the below case, we have three product to search, but steps to do that search are same.
+6 .In such cases, we will have to use scenario outline - Examples structure.
+7. Examples are written in a tabular format.
+8. Below example has only one column, but you can add multiple column, multiple row data.
+9. For first iteration, "<product_name>" variable will be replaced with first value in the examples table.
+10. Once first iteration is completed, the scenario will again start executing given statement and this time 2nd column value from examples will be picked.
+11. It will continue to do this, until all the rows are executed.
+12. Check this link for more details: https://cucumber.io/docs/gherkin/reference/
+
+<b> Code Implementation! </b>
+
+<details>
+  <summary> Click to see code! </summary>
+  
+  ```
+  Scenario Outline: User is able to search multiple products
+    Given User navigated to the home application url
+    When User Search for product "<product_name>"
+    Then Search Result page is displayed
+    Examples:
+      |product_name|
+      | laptop     |
+      | earphone   |
+      | computer   |
+
+  Scenario Outline: User is able to search multiple products
+    Given User navigated to the home application url
+    When User Search for product "<product_name>"
+    Then Search Result page is displayed and the price is "<price>"
+    Examples:
+      |product_name| price      |
+      | laptop     |  10        |
+      | earphone   |  20        |
+      | computer   |  30        |
+
+  ```
+  
+</details>
+
