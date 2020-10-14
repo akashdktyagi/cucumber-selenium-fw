@@ -1,41 +1,47 @@
-# cucumber-selenium-fw
+# Cucumber Selenium Framwork
 
 Steps to Do
 ---
 
 This Framework has been created by Akash Tyagi and Sarang Holey. 
-It has been created for training purposes. However, is still industry standard and can be used in any actual live project.
+It has been created for training purposes for VisionIT Tech. However, it is an industry standard framework and can be used in any actual live project. Also this is work in progress. Please check the 'Items to be covered' section for full details on the topics and componenets covered in the framework.
 You can reach out to us at: akashdktyagi@gmail.com / sarangholey@gmail.com
 
-### These are the items that would be covered in this framework:
-Maven Dependency mangement - Completed
-Maven command line to pass browser info - Completed
-Maven Profile - Pending
-Maven Surefire to run test cases in Parallel - Pending
-Log 4j Implementation - Completed
-Jenkis Integration - Pending
-Github Actions for CI - Pending
-Excel Data Handling in the FW
-Database connection data handling
+### Items to be covered  
+These are the items that would be covered in this framework:
 
-Cucumber Feature Files - Completed
-Cucumber Runner Files - Completed
-Cucumber Step Defs - Completed
-Cucumber After and Before Hooks to launch and close browsers - Completed
-Cucumber Scenario Interface - Completed
-Cucumber Scenario Outline - Completed
-Cucumber Use Scenario interface to capture screenshot - Completed
-Cucumber Datatables - Pending
-Cucumber Background - Pending
-Cucumber But and And - Pending
+* Maven Dependency mangement - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Completed`
+* Maven command line to pass browser info - Completed
+* Maven Profile - Pending
+* Maven Surefire to run test cases in Parallel - Pending
+* Log 4j Implementation - Completed
+* Jenkis Integration - Pending
+* Github Actions for CI - Pending
+* Excel Data Handling in the FW - Pending
+* Database connection data handling - Pending
+* File System Handling to read and write text files and folders - Pending
+* 
+
+* Cucumber Feature Files - Completed
+* Cucumber Runner Files - Completed
+* Cucumber Step Defs - Completed
+* Cucumber After and Before Hooks to launch and close browsers - Completed
+* Cucumber Scenario Interface - Completed
+* Cucumber Scenario Outline - Completed
+* Cucumber Use Scenario interface to capture screenshot - Completed
+* Cucumber Datatables - Pending
+* Cucumber Background - Pending
+* Cucumber But and And - Pending
 
 
-Basic Selenium Operations - Completed
-Selenium Multi tab implementation - Completed
-Selenium Test case with Actions Class use case - Pending
-Selenium Page object Model - Completed
-Selenium Screen shot capturing - Completed
-Selenium Selenium Grid for multi-browser and multi platform execution.
+* Basic Selenium Operations - Completed
+* Selenium Multi tab implementation - Completed
+* Selenium Test case with Actions Class use case - Pending
+* Selenium Page object Model - Completed
+* Selenium Screen shot capturing - Completed
+* Selenium Selenium Grid for multi-browser and multi platform execution - Pending
+* Selenium Webtable Handling - Pending
+* Selenium Complex Scenario Handling - Pending
 
 ### 1. Project Set Up
 Reference Branch: ```1-add-steps-to-do-in-read-me-file```
