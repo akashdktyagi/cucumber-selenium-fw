@@ -8,40 +8,44 @@ It has been created for training purposes for VisionIT Tech. However, it is an i
 You can reach out to us at: akashdktyagi@gmail.com / sarangholey@gmail.com
 
 ### Items to be covered  
-These are the items that would be covered in this framework:
+These are the items that would be covered in this framework. Green marked are completed. Red Marked items are yet to be implemented. 
 
-* Maven Dependency mangement - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `Completed`
-* Maven command line to pass browser info - Completed
-* Maven Profile - Pending
+* Maven Dependency mangement - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Maven command line to pass browser info - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Maven Profile - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
 * Maven Surefire to run test cases in Parallel - Pending
-* Log 4j Implementation - Completed
-* Jenkis Integration - Pending
-* Github Actions for CI - Pending
-* Excel Data Handling in the FW - Pending
-* Database connection data handling - Pending
-* File System Handling to read and write text files and folders - Pending
-* 
+* Log 4j Implementation - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Jenkis Integration - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
+* Github Actions for CI - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
+* Excel Data Handling in the FW - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
+* Database connection data handling - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
+* File System Handling to read and write text files and folders - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
 
-* Cucumber Feature Files - Completed
-* Cucumber Runner Files - Completed
-* Cucumber Step Defs - Completed
-* Cucumber After and Before Hooks to launch and close browsers - Completed
-* Cucumber Scenario Interface - Completed
-* Cucumber Scenario Outline - Completed
-* Cucumber Use Scenario interface to capture screenshot - Completed
-* Cucumber Datatables - Pending
-* Cucumber Background - Pending
-* Cucumber But and And - Pending
+---
 
+* Cucumber Feature Files - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Cucumber Runner Files - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Cucumber Step Defs - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Cucumber After and Before Hooks to launch and close browsers - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Cucumber Scenario Interface - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Cucumber Scenario Outline - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Cucumber Use Scenario interface to capture screenshot - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Cucumber Datatables - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
+* Cucumber Background - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
+* Cucumber But and And - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
 
-* Basic Selenium Operations - Completed
-* Selenium Multi tab implementation - Completed
-* Selenium Test case with Actions Class use case - Pending
-* Selenium Page object Model - Completed
-* Selenium Screen shot capturing - Completed
-* Selenium Selenium Grid for multi-browser and multi platform execution - Pending
-* Selenium Webtable Handling - Pending
-* Selenium Complex Scenario Handling - Pending
+---
+
+* Basic Selenium Operations - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Selenium Multi tab implementation - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Selenium Test case with Actions Class use case - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
+* Selenium Page object Model - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Selenium Screen shot capturing - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
+* Selenium Selenium Grid for multi-browser and multi platform execution - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
+* Selenium Webtable Handling - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
+* Selenium Complex Scenario Handling - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
+
+---
 
 ### 1. Project Set Up
 Reference Branch: ```1-add-steps-to-do-in-read-me-file```
