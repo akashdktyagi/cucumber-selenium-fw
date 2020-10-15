@@ -31,7 +31,7 @@ These are the items that would be covered in this framework. Green marked are co
 * Cucumber Scenario Outline - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
 * Cucumber Use Scenario interface to capture screenshot - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
 * Cucumber Datatables - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
-* Cucumber Background - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
+* Cucumber Background - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
 * Cucumber But and And - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
 
 ---
@@ -896,3 +896,53 @@ Reference Branch: ```12-capture-screenshot-on-failure```
   
 </details>
 
+---
+
+### 14. Cucumber Background
+Reference Branch: ```14-cucumber-background```
+
+1. Background in Cucumber is used to define a step or series of steps that are common to all the tests in the feature file.
+2. It allows you to add some context to the scenarios for a feature where it is defined.
+3. A Background is much like a scenario containing a number of steps.
+4. But it runs before each and every scenario were for a feature in which it is defined.
+5. In Our example, we have a Given statement which being repeated in all the Scenarios. i.e. User navigated to the Home application url
+6. So We will move it up and write this statement at the top under Background.
+7. When Feature file is executed, Background statement is going to get executed before each Test Case automatically.
+8. Background is similar to having a Before hook, but instead of defining before in the code, it is used in Fearure file.
+9. Also, notice that we have removed Given statement from all the below test cases.
+
+<b> Code Implementation! </b>
+
+<details>
+  <summary> Click to see code! </summary>
+  
+  ```aidl
+Feature: E-commerce Project Web Site Health Check
+
+   Background: Navigation to the URL
+    Given User navigated to the home application url
+
+  Scenario: User is able to Open the browser, navigate to the URL and Search for Product
+    When User Search for product "Laptop"
+    Then Search Result page is displayed
+
+  Scenario: User is click on the Product and check the Product Details
+    And User Search for product "earphone"
+    When User click on any product
+    Then Product Description is displayed in new tab
+
+  Scenario Outline: User is able to search multiple products
+    When User Search for product "<product_name>"
+    Then Search Result page is displayed
+    Examples:
+      |product_name|
+      | laptop     |
+      | earphone   |
+      | computer   |
+
+  ```
+
+</details>
+
+
+  
