@@ -31,7 +31,7 @@ These are the items that would be covered in this framework. Green marked are co
 * Cucumber Scenario Outline - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
 * Cucumber Use Scenario interface to capture screenshot - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
 * Cucumber Datatables - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
-* Cucumber Background - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
+* Cucumber Background - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
 * Cucumber But and And - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
 
 ---
