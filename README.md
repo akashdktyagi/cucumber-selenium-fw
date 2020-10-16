@@ -1,13 +1,16 @@
 # Cucumber Selenium Framwork
 
-Steps to Do
+---
+
+Introduction
+
 ---
 
 This Framework has been created by Akash Tyagi and Sarang Holey. 
-It has been created for training purposes for VisionIT Tech. However, it is an industry standard framework and can be used in any actual live project. Also this is work in progress. Please check the 'Items to be covered' section for full details on the topics and componenets covered in the framework.
+It has been created for training purposes for VisionIT Tech. However, it is an industry standard framework and can be used in any actual live project. Also this is work in progress. Please check the 'Items to be covered' section for full details on the topics and components covered in the framework.
 You can reach out to us at: akashdktyagi@gmail.com / sarangholey@gmail.com
 
-### Items to be covered  
+### Concepts Covered in the Framework.
 These are the items that would be covered in this framework. Green marked are completed. Red Marked items are yet to be implemented. 
 
 * Maven Dependency mangement - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `Completed`
@@ -46,6 +49,11 @@ These are the items that would be covered in this framework. Green marked are co
 * Selenium Complex Scenario Handling - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Pending
 
 ---
+
+Steps to Do
+
+---
+
 
 ### 1. Project Set Up
 Reference Branch: ```1-add-steps-to-do-in-read-me-file```
