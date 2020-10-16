@@ -65,6 +65,7 @@ Reference Branch: ```1-add-steps-to-do-in-read-me-file```
     * Selenium Library
 
 <details>
+   
   <summary> Click to see code.</summary>
   
 ```
@@ -103,7 +104,6 @@ Reference Branch: ```1-add-steps-to-do-in-read-me-file```
             <version>3.141.59</version>
         </dependency>
 ```
-
 </details>
 
 ---
@@ -705,6 +705,7 @@ Call methods using page object:
 ```
 
 </details>
+
 ### 11. Web Driver Manager Methods:
 Reference Branch: ```11-webdriver-methods```
 
@@ -720,6 +721,7 @@ Check the code here:
 WebDriverFactory Class:
 
 <details>
+   
   <summary> Click to see code.</summary>
   
 ```$xslt
