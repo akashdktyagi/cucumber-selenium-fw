@@ -896,9 +896,9 @@ Reference Branch: ```12-capture-screenshot-on-failure```
   
 </details>
 
-### 15. Cucumber Data-tables and Xpath Axes
+### 15. Cucumber Data-tables
 
-Reference Branch: ```15-cucumber-datatable-and-xpath-axes```
+Reference Branch: ```15-cucumber-datatable```
 
 1. This is a complicated Scenario to automate.
 2. Here we are doing a normal user story flow where user wants to buy 
