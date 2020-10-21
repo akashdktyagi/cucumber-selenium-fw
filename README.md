@@ -896,3 +896,78 @@ Reference Branch: ```12-capture-screenshot-on-failure```
   
 </details>
 
+### 15. Cucumber Data-tables and Xpath Axes
+
+Reference Branch: ```15-cucumber-datatable-and-xpath-axes```
+
+1. This is a complicated Scenario to automate.
+2. Here we are doing a normal user story flow where user wants to buy 
+    * Laptop
+    * Earphone
+    * Mouse
+3. But user has different price requirement for each item and also different quantity.
+4. Scenario is manually simple to do but automation can be quite complicated.
+5. Things to manage while automation:
+    * Pass values like product name, Price, amount from Feature file to Step Defs Class method.
+        * For this we will use Cucumber Datatable concept
+    * Search for product and read prices of each product in the list and check if it matches the 'less then price' criteria
+        * For Searching for the product and then comparing the price of the same product we will use xpath axes.
+        * Xpath Axes are the way to locate the relative position of the locator with respect to other locators.
+        * So, basically, we will try to locate the price with respect to the product link. More on this below.
+6. So, to start with we have to capture the requirement in the feature file first: 
+```aidl
+   Scenario: User is able to search for various products and add each type of products with different prices
+     Given User navigated to the home application url
+     When User add the products with defined price range and quantity listed below
+       | ITEM     | PRICE_LESS_THAN | QUANTITY |
+       | laptop   | 40000           | 1        |
+       | earphone | 1000            | 2        |
+       | mouse    | 2000            | 1        |
+     Then User cart is updated with the products and quantity
+```
+Now, something about the above scenario.
+1. Please note that, this is not Data Driven test cases/Scenario.
+2. In a Data driven scenario, we use ```Scenario Outline``` and ```Examples: ``` tags to represent our Data.
+3. And in a Data Driven Scenario, same scenario repeats itself but with new data every time. Check branch ```13-Scenario Outline and examples Implementation``` to know more on this.
+4. In the case of Cucumber Data Table we are just Passing two dimensional data to a single step.
+5. So if you want to pass a scalar or single value, you will just pass that value to the feature step and it can be captured in the Step Defs class method with type String or Integer etc.
+6. But if you have to pass 2-D data like mentioned above, you use data table.
+7. This 2-D can be captured in the Step Def class method using Collections or Cucumber Data-Table.
+8. So when you auto generate the Step Def, this is what you get.
+9. Read the auto-generated comment in the below code snippet.
+10. It says that your data which you passed from the feature file can be captured in ```io.cucumber.datatable.DataTable dataTable```(check method argument.)
+11. But intead of using ```datatable``` object you can also auto convert this in collection object of your choice.
+12. Check official Cucumber Data table documentation to know more on this. This is called as auto-transformation.
+13. So basically what ever data we will pass from feature file will get converted to one of these collections.
+14. We will use ```List<Map<K,V>>``` to save this data. Our definition would look like: ```List<Map<String,String>> data```
+15. Pictorially data would look like.
+
+```aidl
+    @When("User add the products with defined price range and quantity listed below")
+    public void user_add_the_products_with_defined_price_range_and_quantity_listed_below(io.cucumber.datatable.DataTable dataTable) {
+        // Write code here that turns the phrase above into concrete actions
+        // For automatic transformation, change DataTable to one of
+        // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
+        // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
+        // Double, Byte, Short, Long, BigInteger or BigDecimal.
+        //
+        // For other transformations you can register a DataTableType.
+        throw new io.cucumber.java.PendingException();
+    }
+```
+
+```aidl
+
+A list of Maps would look like this:
+list_name = 
+{ 
+    { ITEM=>'laptop',PRICE_LESS_THAN=>'40000',QUANTITY=>1},
+    { ITEM=>'earphone',PRICE_LESS_THAN=>'1000',QUANTITY=>2},
+    { ITEM=>'mouse',PRICE_LESS_THAN=>'2000',QUANTITY=>1}
+}
+
+To Fetch values:
+
+list_name.get(0).get("ITEM") ==> this will give me laptop
+list_name.get(2).get("QUANTITY") ==> this will give me 1 i.e. price of mouse
+```

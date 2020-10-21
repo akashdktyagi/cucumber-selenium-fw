@@ -33,16 +33,3 @@ Feature: E-commerce Project Web Site Health Check
       | laptop     |
       | earphone   |
       | computer   |
-
-#  Comment: Just to explain the Scenario Outline for multiple column data, this test case does not work
-#  Scenario Outline: User is able to search multiple products
-#    Given User navigated to the home application url
-#    When User Search for product "<product_name>"
-#    Then Search Result page is displayed and the price is "<price>"
-#    Examples:
-#      |product_name| price      |
-#      | laptop     |  10        |
-#      | earphone   |  20        |
-#      | computer   |  30        |
-
-

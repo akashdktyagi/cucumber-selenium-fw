@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
             "json:target/json/file.json",
             },
         publish=true,
-        dryRun=false // to tell whether to test run(true) or actual run(false)
+        dryRun=true // to tell whether to test run(true) or actual run(false)
         )
 public class TestRunner {
     //Class will be Emptity.

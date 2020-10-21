@@ -24,6 +24,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -159,4 +160,53 @@ public class StepDefs {
         productDescriptionPageObjects.ValidateProductTileIsCorrectlyDisplayed();
         productDescriptionPageObjects.ValidateAddToCartButtonIsCorrectlyDisplayed();
     }
+
+    @When("User add the products with defined price range and quantity listed below")
+    public void user_add_the_products_with_defined_price_range_and_quantity_listed_below(List<Map<String,String>> data) {
+        String first_product_name = data.get(0).get("ITEM");
+        int first_product_price_limit = Integer.parseInt(data.get(0).get("PRICE_LESS_THAN"));
+        int first_product_amount = Integer.parseInt(data.get(0).get("QUANTITY"));
+
+//        Reusing Existing methods.
+//        You can use existing Step Defs methods.
+//        No issues there.
+        user_search_for_product(first_product_name);
+
+        // Get the List of Products.
+        //This XPATH will get all the product links.
+        //div[@class='sg-row']//a[@class='a-link-normal a-text-normal']
+        List<WebElement> list_product_links = driver.findElements(By.xpath("//div[@class='sg-row']//a[@class='a-link-normal a-text-normal']"));
+
+        //This will give all the prices corresponding to the above products.
+        //We are assuming, that we have the indexes of above product matches the price in below list.
+        //Most of the time this assumption is right. In this case it is certainly is.
+        List<WebElement> list_product_prices = driver.findElements(By.xpath("//div[@class='sg-row']//span[@class='a-price-whole']"));
+
+        int product_link_index=-1;
+        //Loop through the List
+        for (int i=0;i< list_product_prices.size();i++){
+            //Value is to be captured, then , (comma) is to be removed and then it is to be converted to a integer.
+            //Below all done in a single step and value stored in temp variable
+            int temp = Integer.parseInt(list_product_prices.get(i).getText().replace(",",""));
+            if (temp<first_product_price_limit){// if product is less then the price mentioned
+                product_link_index = i;
+                break;
+            }
+        }
+
+        //if a product with required price is found then click on the link.
+        //product_link_index variable will have index
+        list_product_links.get(product_link_index).click();
+
+        //Product description page will be opened
+        product_description_is_displayed_in_new_tab();
+
+    }
+
+    @Then("User cart is updated with the products and quantity")
+    public void user_cart_is_updated_with_the_products_and_quantity() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+
 }
