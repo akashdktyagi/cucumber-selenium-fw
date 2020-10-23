@@ -39,6 +39,7 @@ public class CmnPageObjects {
 	public void SetSearchTextBox(String text) {
 		WebDriverWait webDriverWait = new WebDriverWait(driver,20);
 		WebElement elementSearchBox = webDriverWait.until(ExpectedConditions.elementToBeClickable(search_text_box));
+		elementSearchBox.clear();
 		elementSearchBox.sendKeys(text);
 		logger.info("Value entered in search box: " + text);
 	}
