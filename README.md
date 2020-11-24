@@ -64,11 +64,11 @@ Reference Branch: ```1-add-steps-to-do-in-read-me-file```
     * Junit 4 Library
     * Selenium Library
 
-<details>
+
    
-  <summary> Click to see code.</summary>
+
   
-```
+```xml
    <dependencies>
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -104,7 +104,7 @@ Reference Branch: ```1-add-steps-to-do-in-read-me-file```
             <version>3.141.59</version>
         </dependency>
 ```
-</details>
+
 
 ---
 ### 2. Add Feature File
@@ -112,11 +112,11 @@ Reference Branch: ```2-add-feature-file```
 1. Create a new feature file under test->resources-features package.
 2. Add new Healthcheck feature as below:
 
-<details>
-  <summary> Click to see code.</summary>
+
+
   
   
-```
+```gherkin
 @ui @healthcheck
 Feature: E-commerce Project Web Site Health Check
 
@@ -127,7 +127,7 @@ Feature: E-commerce Project Web Site Health Check
     Then Search Result page is displayed
 ```
 
-</details>
+
 
 ---
 
@@ -140,10 +140,10 @@ Reference Branch: ```3-add-runner-file```
 
 Check Below file:
 
-<details>
-  <summary> Click to see code.</summary>
+
+
   
-```$xslt
+```java
 TestRunner.java File
 package com.visionit.automation.runners;
 
@@ -170,7 +170,7 @@ public class TestRunner {
 }
 ```
 
-</details>
+
 
 ---
 ### 4. Generate Step Defs and Add in stepdefs package
@@ -185,10 +185,10 @@ Reference Branch: ```4-generate-and-add-step-defs-file```
 
 New Java Step Definition file will look like:
 
-<details>
-  <summary> Click to see code.</summary>
+
+
   
-```$xslt
+```java
 package com.visionit.automation.stepdefs;
 
 import io.cucumber.java.en.Given;
@@ -224,7 +224,7 @@ public class StepDefs {
 
 ```
 
-</details>
+
 
 ---
 ### 5 .Add Selenium Steps in Step Defs Java File
@@ -242,10 +242,10 @@ Check in the reference branch as well as below. For exact working code select th
 
 Runner file should like below:
 
-<details>
-  <summary> Click to see code.</summary>
+
+
   
-```$xslt
+```java
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features="classpath:features",//to tell cucumber where is ur feature file
@@ -266,7 +266,7 @@ public class TestRunner {
 ```
 
 Step Defs File will look like Below:
-```$xslt
+```java
 package com.visionit.automation.stepdefs;
 
 import io.cucumber.java.en.Given;
@@ -326,7 +326,7 @@ public class StepDefs {
 }
 ```
 
-</details>
+
 
 ---
 ### 6. Add new Test Case for Product Description
@@ -338,10 +338,10 @@ Notice that I am reusing the steps created in the previous scenerio
 3. This will generate the steps for the new steps.
 4. Copy these new steps in the StepDefs file and write corresponding selenium code.
 
-<details>
-  <summary> Click to see code.</summary>
+
+
   
-```$xslt
+```java
   Scenario: User is click on the Product and check the Product Details
     Given User opened browser
     And User navigated to the home application url
@@ -367,7 +367,7 @@ public void product_description_is_displayed_in_new_tab() {
 }
 ```
 Write step def for Click on any product:
-```$xslt
+```java
     @When("User click on any product")
     public void user_click_on_any_product() {
         //listOfProducts will have all the links displayed in the search box
@@ -403,7 +403,7 @@ Write step def for Click on any product:
     }
 ```
 
-</details>
+
 
 -----
 ### 7. Cucumber Hooks @Before and @After Hooks for Browser Invoke and Browser Close Operation
@@ -413,10 +413,10 @@ Reference Branch: ```7-cucumber-hooks-before-after```
 3. Therefore as a part of this modification, I am not using step to invoke the browser, check the feature file in the reference branch folder structure.
 4. Putting in files here as well.
 
-<details>
-  <summary> Click to see code.</summary>
+
+
   
-```$xslt
+```gherkin
 Feature: E-commerce Project Web Site Health Check
 
   Scenario: User is able to Open the browser, navigate to the URL and Search for Product
@@ -459,7 +459,7 @@ Step Defs Code Snippet:
 
 ```
 
-</details>
+
 
 ---
 ### 8. Cucumber Scnerio Interface/Object Injections
@@ -473,10 +473,10 @@ Reference Branch: 8-scenario-interface-injection
 https://cucumber.io/docs/cucumber/api/#hooks
 6. Check the reports and witness how these logs are displayed in the report.
 
-<details>
-  <summary> Click to see code.</summary>
+
+
   
-```$xslt
+```java
 
    WebDriver driver;
     String base_url = "https://amazon.in";
@@ -508,7 +508,7 @@ https://cucumber.io/docs/cucumber/api/#hooks
     }
 ```
 
-</details>
+
 
  ### 9. Log 4j Impl for Logging
  Reference Branch: ```9-log4j-impl-for-logging```
@@ -524,10 +524,10 @@ https://cucumber.io/docs/cucumber/api/#hooks
 7. And for any where you want to log errors, mention, ```Log.fatal or Log.error```
 8. There are other log levels as well like debug, trace etc. For details on this you can check this link: https://www.tutorialspoint.com/log4j/log4j_logging_levels.htm
 
-<details>
-  <summary> Click to see code.</summary>
+
+
   
-```$xslt
+```xml
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -545,7 +545,7 @@ https://cucumber.io/docs/cucumber/api/#hooks
  
  Log4j2.xml file:
  
- ```$xslt
+ ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn">
     <Properties>
@@ -591,7 +591,7 @@ https://cucumber.io/docs/cucumber/api/#hooks
         -->
 ```
 
-</details>
+
 
 ### 10. Page Object Model:
 Reference Branch: ```10-page-object-model```
@@ -609,10 +609,10 @@ Check below example, for better understanding go to branch and check.
 
 Page Object Model file:
 
-<details>
-  <summary> Click to see code.</summary>
+
+
   
-```$xslt
+```java
 public class SearchPageObjects {
 
     private static final Logger logger = LogManager.getLogger(SearchPageObjects.class);
@@ -655,15 +655,15 @@ public class SearchPageObjects {
 
 ```
 
-</details>
+
 
 How to use it in Step Defs:
 
-<details>
-  <summary> Click to see code.</summary>
+
+
   
 Declare the objects
-```$xslt
+```java
     CmnPageObjects cmnPageObjects;
     HomePageObjects homePageObjects;
     SignInPageObjects signInPageObjects;
@@ -673,7 +673,7 @@ Declare the objects
 
 Initialize the objects in the @Before method:
 
-```$xslt
+```java
     @Before
     public void setUp(Scenario scn) throws Exception {
         this.scn = scn; //Assign this to class variable, so that it can be used in all the step def methods
@@ -694,7 +694,8 @@ Initialize the objects in the @Before method:
 ```
 
 Call methods using page object:
-```    @Given("User navigated to the home application url")
+```java
+   @Given("User navigated to the home application url")
        public void user_navigated_to_the_home_application_url() {
            WebDriverFactory.navigateToTheUrl(base_url);
            scn.log("Browser navigated to URL: " + base_url);
@@ -704,7 +705,7 @@ Call methods using page object:
        }
 ```
 
-</details>
+
 
 ### 11. Web Driver Manager Methods:
 Reference Branch: ```11-webdriver-methods```
@@ -720,11 +721,7 @@ Check the code here:
 
 WebDriverFactory Class:
 
-<details>
-   
-  <summary> Click to see code.</summary>
-  
-```$xslt
+```java
 public class WebDriverFactory {
     private static final Logger logger = LogManager.getLogger(WebDriverFactory.class);
     private static WebDriver driver=null;
@@ -794,7 +791,7 @@ public class WebDriverFactory {
 ```
 
 How to use:
-```$xslt
+```java
     @Before
     public void setUp(Scenario scn) throws Exception {
         this.scn = scn; //Assign this to class variable, so that it can be used in all the step def methods
@@ -806,7 +803,7 @@ How to use:
       }
 ```
 
-</details>
+
 
 
 ### 12. Screen shot capturing on test scenario failures
@@ -835,10 +832,10 @@ Reference Branch: ```12-capture-screenshot-on-failure```
 
 <b> Code Implementation: </b>
 
-<details>
-  <summary> Click to see code.</summary>
+
+
   
-  ```
+  ```java
     // Giving this method order as 2, so that quit happens after screen shot capture.
     @After(order=1)
     public void cleanUp(){
@@ -858,7 +855,7 @@ Reference Branch: ```12-capture-screenshot-on-failure```
     }
   ```
 
-</details>
+
 
 ### 13. Scenario Outline and examples Implementation
 
@@ -877,10 +874,10 @@ Reference Branch: ```12-capture-screenshot-on-failure```
 
 <b> Code Implementation! </b>
 
-<details>
+
   <summary> Click to see code! </summary>
   
-  ```
+  ```gherkin
   Scenario Outline: User is able to search multiple products
     Given User navigated to the home application url
     When User Search for product "<product_name>"
@@ -903,7 +900,7 @@ Reference Branch: ```12-capture-screenshot-on-failure```
 
   ```
   
-</details>
+
 
 ---
 
@@ -922,10 +919,10 @@ Reference Branch: ```14-cucumber-background```
 
 <b> Code Implementation! </b>
 
-<details>
+
   <summary> Click to see code! </summary>
   
-  ```aidl
+  ```gherkin
 Feature: E-commerce Project Web Site Health Check
 
    Background: Navigation to the URL
@@ -951,7 +948,7 @@ Feature: E-commerce Project Web Site Health Check
 
   ```
 
-</details>
+
 
 
   
