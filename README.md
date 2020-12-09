@@ -965,7 +965,7 @@ Reference Branch: ```15-cucumber-datatable```
         * Xpath Axes are the way to locate the relative position of the locator with respect to other locators.
         * So, basically, we will try to locate the price with respect to the product link. More on this below.
 6. So, to start with we have to capture the requirement in the feature file first: 
-```aidl
+```gherkin
    Scenario: User is able to search for various products and add each type of products with different prices
      Given User navigated to the home application url
      When User add the products with defined price range and quantity listed below
@@ -992,7 +992,7 @@ Now, something about the above scenario.
 14. We will use ```List<Map<K,V>>``` to save this data. Our definition would look like: ```List<Map<String,String>> data```
 15. Pictorially data would look like.
 
-```aidl
+```java
     @When("User add the products with defined price range and quantity listed below")
     public void user_add_the_products_with_defined_price_range_and_quantity_listed_below(io.cucumber.datatable.DataTable dataTable) {
         // Write code here that turns the phrase above into concrete actions
@@ -1006,9 +1006,9 @@ Now, something about the above scenario.
     }
 ```
 
-```aidl
+```text
 
-A list of Maps would look like this:
+//A list of Maps would look like this:
 list_name = 
 { 
     { ITEM=>'laptop',PRICE_LESS_THAN=>'40000',QUANTITY=>1},
@@ -1016,8 +1016,97 @@ list_name =
     { ITEM=>'mouse',PRICE_LESS_THAN=>'2000',QUANTITY=>1}
 }
 
-To Fetch values:
+//To Fetch values:
 
 list_name.get(0).get("ITEM") ==> this will give me laptop
 list_name.get(2).get("QUANTITY") ==> this will give me 1 i.e. price of mouse
+```
+
+### 16. Search Feature Test Cases
+
+Reference Branch: ```16-search-feature-test-cases```
+
+* New search scenario to filter the search result
+* Kept the scenario in the Search Feature file
+* Scenario could be written in below two ways.
+* For the sake of simplicity adopted the below scenario.
+
+```gherkin
+## Scenario could be written in below two ways.
+## For the simplicity implemented the below
+    Scenario: User is able to filter the result based on Prices
+      Given User navigated to the home application url
+      And User Search for product "Computer"
+      When User enters minimum price and maximum price as mentioned in below table
+        |MIN_PRICE|MAX_PRICE|
+        |30000    |40000    |
+      Then Search results gets filtered with price range as mentioned in below table
+        |MIN_PRICE|MAX_PRICE|
+        |30000    |40000    |
+
+    Scenario: User is able to filter the result based on Prices
+      Given User navigated to the home application url
+      And User Search for product "laptop"
+      When User enters minimum price as "30000" and maximum price as "40000" mentioned in below table
+      Then Verify that Search results gets filtered with price range between 30000 and 40000
+```
+
+* Rules of the game still remains the same, add locators in the page object model file. Locators should be private.
+* Create public methods and call them in the scenario steps.
+* Below is the step def:
+```java
+    @When("User enters minimum price as {string} and maximum price as {string} mentioned in below table")
+    public void user_enters_minimum_price_as_and_maximum_price_as_mentioned_in_below_table(String min, String max) {
+        searchPageObjects.FilterSearchResultByPrice(min,max);
+    }
+
+    @Then("Verify that Search results gets filtered with price range between {int} and {int}")
+    public void search_results_gets_filtered_with_price_range_between_and(int min, int max) {
+        searchPageObjects.VerifyThatSearchedProductsAreInPriceRange(min,max);
+    }
+
+```
+* Below is the method added in the page object model file: ```SearchPageObject```
+* These methods contains the logic of validating that the product list is with in the price range
+```java
+
+   public void FilterSearchResultByPrice(String min,String max){
+        driver.findElement(txtbx_minimum_price_filter).sendKeys(min);
+        logger.info("Min price field set: " + min);
+
+        driver.findElement(txtbx_maximum_price_filter).sendKeys(max);
+        logger.info("Max price field set: " + max);
+
+        driver.findElement(go_button_price_filter).click();
+        logger.info("Search Price filter - Go Button clicked");
+
+    }
+
+    public void VerifyThatSearchedProductsAreInPriceRange(int min, int max){
+        List<WebElement> product_prices = driver.findElements(product_price_list);
+        logger.info("Get all the product prices");
+        boolean bResult = false;
+        int price_temp=0;
+
+        for(int i=0;i<product_prices.size();i++){
+            price_temp = Integer.parseInt(product_prices.get(i).getText().replace(",",""));
+            if (price_temp>=min && price_temp<=max){
+                bResult = true;
+                logger.info("For index: " + i + " Product Price: " + price_temp + " and for Product: " + product_prices.get(i).getText());
+            }else{
+                bResult = false;
+                logger.error("Product list is not with in Price range. Failed.");
+                break;
+            }
+        }
+
+        if (bResult){
+            Assert.assertTrue("Search Result is with in the defined range i.e. Min: " + min + " Max: " + max,true);
+            logger.info("All product is filtered with right price range. Min: " + min + " Max: " + max);
+        }else{
+            logger.error("All product is not filtered with right price range. Min: " + min + " Max: " + max);
+            Assert.fail("Search Result is not with in the defined range i.e. Min: " + min + " Max: " + max );
+        }
+
+    }
 ```

@@ -89,7 +89,7 @@ public class StepDefs {
     // Giving this method order as 2, so that quit happens after screen shot capture.
     @After(order=1)
     public void cleanUp(){
-        WebDriverFactory.quitDriver();
+        //WebDriverFactory.quitDriver();
         scn.log("Browser Closed");
     }
 
@@ -267,6 +267,17 @@ public class StepDefs {
         //However you can continue to use the same window to search for new products
         WebDriverFactory.switchToOriginalTab();
         scn.log("Driver switched to original tab/window");
+    }
+
+
+    @When("User enters minimum price as {string} and maximum price as {string} mentioned in below table")
+    public void user_enters_minimum_price_as_and_maximum_price_as_mentioned_in_below_table(String min, String max) {
+        searchPageObjects.FilterSearchResultByPrice(min,max);
+    }
+
+    @Then("Verify that Search results gets filtered with price range between {int} and {int}")
+    public void search_results_gets_filtered_with_price_range_between_and(int min, int max) {
+        searchPageObjects.VerifyThatSearchedProductsAreInPriceRange(min,max);
     }
 
 }
