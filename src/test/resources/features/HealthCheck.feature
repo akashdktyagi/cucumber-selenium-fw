@@ -43,4 +43,3 @@ Feature: E-commerce Project Web Site Health Check
       | earphone   |
       | computer   |
 
-

@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -52,6 +54,8 @@ public class WebDriverFactory {
         logger.info("Driver closed");
     }
     public static void switchBrowserToTab(){
+        WebDriverWait wait = new WebDriverWait(driver,20);
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
         //As product description click will open new tab, we need to switch the driver to the new tab
         //If you do not switch, you can not access the new tab html elements
         //This is how you do it
@@ -63,6 +67,18 @@ public class WebDriverFactory {
         String nextTab = it.next();//gives the child window id
         driver.switchTo().window(nextTab); // switch to product Descp
         logger.info("Switched to the new window/tab");
+    }
+
+    public static void switchToOriginalTab(){
+        Set<String> handles = driver.getWindowHandles(); // get all the open windows
+        logger.info("List of windows found: "+handles.size());
+        logger.info("Windows handles: " + handles.toString());
+        Iterator<String> it = handles.iterator(); // get the iterator to iterate the elements in set
+        String original = it.next();//gives the parent window id
+        //String nextTab = it.next();//gives the child window id
+        driver.switchTo().window(original);
+        logger.info("Switched to the original window/tab");
+
     }
 
     public static String getBrowserName(){
