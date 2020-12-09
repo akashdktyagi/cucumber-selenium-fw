@@ -26,6 +26,10 @@ public class SearchPageObjects {
 
     private By search_refinement_categories_segment  = By.id("s-refinements");
     private By product_link_list = By.xpath("//a[@class='a-link-normal a-text-normal']");
+    private By txtbx_minimum_price_filter = By.name("low-price");
+    private By txtbx_maximum_price_filter = By.name("high-price");
+    private By go_button_price_filter = By.xpath("//input[@aria-labelledby='a-autoid-1-announce']");
+    private By product_price_list = By.xpath(("//span[@class='a-price-whole']"));
 
     //Section 3: Paratmerize the constuctor
     public SearchPageObjects(WebDriver driver){
@@ -54,6 +58,46 @@ public class SearchPageObjects {
 
         //return the text of the clicked link if further validation is required.
         return listOfProducts.get(productIndex).getText();
+
+    }
+
+    public void FilterSearchResultByPrice(String min,String max){
+        driver.findElement(txtbx_minimum_price_filter).sendKeys(min);
+        logger.info("Min price field set: " + min);
+
+        driver.findElement(txtbx_maximum_price_filter).sendKeys(max);
+        logger.info("Max price field set: " + max);
+
+        driver.findElement(go_button_price_filter).click();
+        logger.info("Search Price filter - Go Button clicked");
+
+    }
+
+    public void VerifyThatSearchedProductsAreInPriceRange(int min, int max){
+        List<WebElement> product_prices = driver.findElements(product_price_list);
+        logger.info("Get all the product prices");
+        boolean bResult = false;
+        int price_temp=0;
+
+        for(int i=0;i<product_prices.size();i++){
+            price_temp = Integer.parseInt(product_prices.get(i).getText().replace(",",""));
+            if (price_temp>=min && price_temp<=max){
+                bResult = true;
+                logger.info("For index: " + i + " Product Price: " + price_temp + " and for Product: " + product_prices.get(i).getText());
+            }else{
+                bResult = false;
+                logger.error("Product list is not with in Price range. Failed.");
+                break;
+            }
+        }
+
+        if (bResult){
+            Assert.assertTrue("Search Result is with in the defined range i.e. Min: " + min + " Max: " + max,true);
+            logger.info("All product is filtered with right price range. Min: " + min + " Max: " + max);
+        }else{
+            logger.error("All product is not filtered with right price range. Min: " + min + " Max: " + max);
+            Assert.fail("Search Result is not with in the defined range i.e. Min: " + min + " Max: " + max );
+        }
 
     }
 }

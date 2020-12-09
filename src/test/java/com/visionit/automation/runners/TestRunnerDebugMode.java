@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features="classpath:features",//to tell cucumber where is ur feature file
         glue="com.visionit.automation.stepdefs", // to tell cucumber where is ur step def code
-        tags="@search", // to tell which tagged feature file to execute
+        tags="@t", // to tell which tagged feature file to execute
         plugin = {"pretty", // to generate reports
             "html:target/html/htmlreport.html",
             "json:target/json/file.json",
