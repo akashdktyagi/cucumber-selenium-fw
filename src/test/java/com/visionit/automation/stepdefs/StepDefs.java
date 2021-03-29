@@ -81,6 +81,20 @@ public class StepDefs {
         signInPageObjects = new SignInPageObjects(driver);
         searchPageObjects = new SearchPageObjects(driver);
         productDescriptionPageObjects = new ProductDescriptionPageObjects(driver);
+
+        WebDriverFactory.navigateToTheUrl(base_url);
+        scn.log("Browser navigated to URL: " + base_url);
+
+        String expected = "Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in";
+        cmnPageObjects.validatePageTitleMatch(expected);
+
+        String sdfsf = "{\n" +
+                "  \"content\": [\n" +
+                "    {\n" +
+                "      \"fullName\": \"string\",\n" +
+                "      \"userName\": \"string\"\n" +
+                "    }\n" +
+                "  ],";
     }
 
     // make sure to use this after import io.cucumber.java.After;

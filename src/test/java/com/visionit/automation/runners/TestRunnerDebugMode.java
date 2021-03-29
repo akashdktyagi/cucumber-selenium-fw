@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
             "html:target/html/htmlreport.html",
             "json:target/json/file.json",
             },
-        publish=false,
+        publish=true,
         dryRun=false // to tell whether to test run(true) or actual run(false)
         )
 public class TestRunnerDebugMode {

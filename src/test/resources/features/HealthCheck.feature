@@ -17,6 +17,7 @@ Feature: E-commerce Project Web Site Health Check
     When User Search for product "Laptop"
     Then Search Result page is displayed
 
+    @t
   Scenario: User is click on the Product and check the Product Details
     And User Search for product "earphone"
     When User click on any product
@@ -42,4 +43,5 @@ Feature: E-commerce Project Web Site Health Check
       | laptop     |
       | earphone   |
       | computer   |
+
 

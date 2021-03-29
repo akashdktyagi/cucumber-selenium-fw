@@ -9,6 +9,7 @@ package com.visionit.automation.pageobjects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -20,17 +21,16 @@ public class HomePageObjects {
     private WebDriver driver;
 
     //Section 2 : Define the locators
-    private By link_sign_in_securly = By.linkText("Sign in securely");
+    private String menu_item_text_element = "//button[@role='menuitem' and text()='%s']";
 
     //Section 3: Paratmerize the constuctor
     public HomePageObjects(WebDriver driver){
         this.driver = driver;
     }
 
-    //Section 4 : Write Business Methods (methods to be exposed) agent
-    public void clickLinkSignInSecurely(){
-        driver.findElement(link_sign_in_securly).click();
-        logger.info("Click link: link_sign_in_securly");
+    public void validateMenuItemIsPresent(String menuItemName){
+        logger.info("Validating the menu item is present. Menu Item name: " + menuItemName);
+        Assert.assertEquals(driver.findElement(By.xpath(String.format(menu_item_text_element,menuItemName))).isDisplayed(),true);
     }
 
 }
