@@ -1,15 +1,12 @@
 # Compiled class file
 *.class
-*.iml
-*.idea
+
 # Log file
 *.log
-target
+
 # BlueJ files
 *.ctxt
-chromedriver
-geckodriver
-chromedriver.exe
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -24,3 +21,9 @@ chromedriver.exe
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/target/
+*.classpath
+.settings
+.project
+.classpath
+*.exe
